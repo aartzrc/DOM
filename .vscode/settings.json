@@ -1,0 +1,6 @@
+{
+    "less.compile": {
+        "out": "${workspaceRoot}/examples/www/",
+        "sourceMap": true,
+    }
+}

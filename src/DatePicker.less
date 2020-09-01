@@ -1,0 +1,115 @@
+@shadow-color: #05204A; // oxford blue
+@base-background: #D9D9D9; // gainsboro
+@content-background: white;
+@border-color: #3C6E71; // myrtle green
+
+html, body {
+    font-family: sans-serif;
+}
+
+div.datepicker-container {
+    position: relative;
+    div.picker {
+        &.with-input {
+            position: absolute;
+            top:2em;
+            left:0;
+        }
+        width: 13.5em;
+        height: 16em;
+        border: thin solid @border-color;
+        background-color: @content-background;
+        z-index:99;
+        padding:.3em;
+        border-radius:.2em;
+        box-shadow: 0 0 .2em @shadow-color;
+        display: grid;
+        div {
+            text-align: center;
+            padding:.3em;
+        }
+        &.day-mode {
+            @column-width: 100/7%;
+            @row-height: 100/9fr;
+            grid-template-columns: @column-width @column-width @column-width @column-width @column-width @column-width @column-width;    
+            grid-template-rows: auto auto @row-height @row-height @row-height @row-height @row-height @row-height @row-height;
+            div.title {
+                grid-column: 1 / span 7;
+            }
+            button.btn-next {
+                grid-column: 7;
+            }
+            button.btn-mode {
+                grid-column: 2 / span 5;
+            }
+        }
+        &.month-mode, &.year-mode, &.decade-mode {
+            @column-width: 100/4%;
+            @row-height: 100/3fr;
+            grid-template-columns: @column-width @column-width @column-width @column-width;    
+            grid-template-rows: auto auto @row-height @row-height @row-height;
+            div.title {
+                grid-column: 1 / span 4;
+            }
+            div.header {
+                display: none !important;
+            }
+            button.btn-next {
+                grid-column: 4;
+            }
+            button.btn-mode {
+                grid-column: 2 / span 2;
+            }
+            div.cell {
+                padding: 1em .5em;
+            }
+        }
+        div.prev, div.next {
+            color: @border-color;
+        }
+        div.cell {
+            cursor: pointer;
+            border-radius:.2em;
+            margin: auto;
+            &:hover {
+                background-color: @base-background;
+            }
+            &.active {
+                background-color: @shadow-color;
+                color: @content-background;
+                font-weight: bold;
+            }
+        }
+        div.title {            
+            grid-row: 1;
+            font-weight: bold;
+            font-size: 1.1em;
+            &:empty {
+                padding:.1em;
+            }
+        }
+        button {
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            border-radius:.2em;
+            &:hover {
+                background-color: @base-background;
+            }
+        }
+        button.btn-prev {
+            grid-column: 1;
+            grid-row: 2;
+        }
+        button.btn-next {
+            grid-row: 2;
+        }
+        button.btn-mode {
+            grid-row: 2;
+            font-size: 1.1em;
+        }
+        div.header {
+            font-weight: bold;
+        }
+    }
+}
