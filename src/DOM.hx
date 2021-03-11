@@ -255,7 +255,36 @@ class DOM {
             event.initEvent(eventName, true, true);
         }
         return event;
-    }
+	}
+	
+	public static function select(?o:SelectOptions):SelectElement {
+    	var eO:CreateOptions = { t:"select" };
+		mergeOptions(eO, o);
+		var e:SelectElement = cast e(eO);
+		if(o != null && o.name != null)
+			e.name = o.name;
+		return e;
+	}
+
+	public static function selectOptGroup(?o:OptGroupOptions):OptGroupElement {
+    	var eO:CreateOptions = { t:"optgroup" };
+		mergeOptions(eO, o);
+		var e:OptGroupElement = cast e(eO);
+		if(o != null && o.label != null)
+			e.label = o.label;
+		return e;
+	}
+
+	public static function selectOption(?o:SelectOptionOptions):Option {
+    	var eO:CreateOptions = { t:"option" };
+		mergeOptions(eO, o);
+		var e:Option = cast e(eO);
+		if(o != null) {
+			if(o.h != null) e.innerHTML = o.h;
+			if(o.v != null) e.value = o.v;
+		}
+		return e;
+	}
 }
 
 typedef BaseOptions = { ?p:DOMElement, ?c:CSSClass<Array<String>, String>, ?id:String, ?insertBefore:DOMElement, ?title:String };
@@ -269,7 +298,10 @@ typedef LIOptions = { > BaseOptions, ?h:String };
 typedef InputOptions = { > BaseOptions, ?type:String, ?placeholder:String };
 typedef CreateOptions = { > BaseOptions, t:String };
 typedef TableOptions={ > BaseOptions, ?h:String  };
-typedef TDOptions={ > BaseOptions, ?h:String, ?colSpan:Int, ?rowSpan:Int  };
+typedef TDOptions={ > BaseOptions, ?h:String, ?colSpan:Int, ?rowSpan:Int };
+typedef SelectOptions={ > BaseOptions, ?name:String };
+typedef OptGroupOptions={ > BaseOptions, ?label:String };
+typedef SelectOptionOptions={ > BaseOptions, ?h:String, ?v:String };
 
 abstract CSSClass<A, B>(Either<A, B>) from Either<A, B> to Either<A, B> {
 	@:from inline static function fromA<A, B>(a:A):CSSClass<A, B> {
